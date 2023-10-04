@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE sailpoint PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<sailpoint>
+    <ServiceDefinition name="SIEMService" executor="com.sailpoint.siem.server.SIEMService" interval="10" hosts="global">
+        <Description>
+            Service definition for the SIEM service.
+        </Description>
+        <Attributes>
+            <Map>
+                <entry key="pluginName" value="SIEMPlugin" />
+            </Map>
+        </Attributes>
+    </ServiceDefinition>
+</sailpoint>
+

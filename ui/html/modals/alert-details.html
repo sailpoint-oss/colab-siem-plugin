@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.close()">
+        <span aria-hidden="true">×</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <h4 class="modal-title">Alert Details</h4>
+</div>
+<div class="modal-body">
+    <div class="tab-pane">
+        <div class="panel no-padding square-corner">
+            <ul class="list-group no-radius">
+                <li class="list-group-item">
+                    <strong class="">Account Name: </strong>
+                    <span ng-if="ctrl.alert.nativeId">{{ ctrl.alert.nativeId }}</span>
+                    <span ng-if="!ctrl.alert.nativeId">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Application: </strong>
+                    <span ng-if="ctrl.alert.sourceApplication">{{ ctrl.alert.sourceApplication }}</span>
+                    <span ng-if="!ctrl.alert.sourceApplication">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Group: </strong>
+                    <span ng-if="ctrl.alert.targetGroupName">{{ ctrl.alert.targetGroupName }}</span>
+                    <span ng-if="!ctrl.alert.targetGroupName">N/A</span>
+                <li class="list-group-item">
+                    <strong class="">Group Type: </strong>
+                    <span ng-if="ctrl.alert.targetGroupType">{{ ctrl.alert.targetGroupType }}</span>
+                    <span ng-if="!ctrl.alert.targetGroupType">N/A</span>
+                <li class="list-group-item">
+                    <strong class="">Alert Level: </strong>
+                    <span ng-if="ctrl.alert.level">{{ ctrl.alert.level }}</span>
+                    <span ng-if="!ctrl.alert.level">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Alert Type: </strong>
+                    <span ng-if="ctrl.alert.alertType">{{ ctrl.alert.alertType }}</span>
+                    <span ng-if="!ctrl.alert.alertType">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Created On: </strong>
+                    <span ng-if="ctrl.alert.created">{{ ctrl.alert.created }}</span>
+                    <span ng-if="!ctrl.alert.created">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Processed On: </strong>
+                    <span ng-if="ctrl.alert.processedDate">{{ ctrl.alert.processedDate }}</span>
+                    <span ng-if="!ctrl.alert.processedDate">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Alert Action: </strong>
+                    <span ng-if="ctrl.alert.action">{{ ctrl.alert.action }}</span>
+                    <span ng-if="!ctrl.alert.action">N/A</span>
+                </li>
+                <li class="list-group-item">
+                    <strong class="">Use Workflow? </strong>
+                    <span ng-if="ctrl.alert.isOverride">{{ ctrl.alert.isOverride }}</span>
+                    <span ng-if="!ctrl.alert.isOverride">N/A</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

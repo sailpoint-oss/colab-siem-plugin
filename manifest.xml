@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Plugin PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Plugin certificationLevel="None" displayName="SIEM Plugin"
+	minSystemVersion="7.1" name="SIEMPlugin" version="2.0">
+	<Attributes>
+		<Map>
+			<entry key="minUpgradableVersion" value="1.0" />
+			<entry key="fullPage">
+				<value>
+					<FullPage title="SIEM Plugin" />
+				</value>
+			</entry>
+			<entry key="restResources">
+				<value>
+					<List>
+						<String>com.sailpoint.siem.rest.SIEMResource</String>
+						<String>com.sailpoint.siem.rest.DashboardService</String>
+						<String>com.sailpoint.siem.rest.WidgetResource</String>
+						<String>com.sailpoint.siem.rest.SIEMExtResource</String>
+					</List>
+				</value>
+			</entry>
+			<entry key="serviceExecutors">
+				<value>
+					<List>
+						<String>com.sailpoint.siem.server.SIEMService</String>
+					</List>
+				</value>
+			</entry>
+			<entry key="settings">
+				<value>
+					<List>
+						<Setting dataType="boolean"
+							helpText="Prioritize SIEM alerts by level?"
+							label="Prioritize By Level" name="prioritizeByLevel"
+							defaultValue="true" />
+						<Setting dataType="int"
+							helpText="Number of days before deleting completed Alerts"
+							label="Purge By Days" name="purgeByDays" defaultValue="0" />
+						<Setting dataType="boolean"
+							helpText="Defer provisioning to workflow?"
+							label="Defer Provisioning" name="deferProvisioning"
+							defaultValue="false" />
+						<Setting dataType="string"
+							helpText="Provisioning Workflow" label="Provisioning Workflow"
+							name="provisioningWorkflow"
+							defaultValue="SIEM Provisioning Workflow" />
+						<Setting dataType="int"
+							helpText="Maximum number for Syslog events (per API call). Defaulted to 1000."
+							label="Maximum number for Syslog events (per API call)" name="syslogLimit" defaultValue="1000" />
+						<Setting dataType="int"
+							helpText="Maximum number for Audit events (per API call). Defaulted to 1000."
+							label="Maximum number for Audit events (per API call)" name="auditEventLimit" defaultValue="1000" />
+					</List>
+				</value>
+			</entry>
+			<entry key="snippets">
+				<value>
+					<List>
+						<Snippet regexPattern=".*"
+							rightRequired="siemadministrator">
+							<Scripts>
+								<String>ui/js/snippets/head.js</String>
+								<String>ui/js/snippets/widgets/SIEMAlertOverviewModule.js</String>
+								<String>ui/js/snippets/widgets/SIEMAlertTableModule.js</String>
+							</Scripts>
+							<StyleSheets>
+								<String>ui/css/siem-widget-styles.css</String>
+							</StyleSheets>
+						</Snippet>
+						<Snippet regexPattern=".*define/identity.*"
+							rightRequired="siemadministrator">
+							<Scripts>
+								<String>ui/js/snippets/identityAlertDetails.js</String>
+							</Scripts>
+						</Snippet>
+						<Snippet regexPattern=".*define/alerts/alerts.*"
+							rightRequired="siemadministrator">
+							<Scripts>
+								<String>ui/js/snippets/alertsTableFilterSIEMAlerts.js</String>
+							</Scripts>
+						</Snippet>
+					</List>
+				</value>
+			</entry>
+		</Map>
+	</Attributes>
+</Plugin>
+

@@ -1,0 +1,14 @@
+.siem-scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+li.siem-tab > a {
+    padding: 5px;
+}
+
+.siem-list-group-item {
+    font-size: 10pt;
+}
+

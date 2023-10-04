@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Identity PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Identity name="siemservice" protected="true">
+<Attributes>
+    <Map>
+        <entry key="displayName" value="SIEM Service Account"/>
+        <entry key="firstname" value="SIEM"/>
+        <entry key="lastname" value="Service Account"/>
+    </Map>
+</Attributes>
+<Capabilities>
+    <Reference class="sailpoint.object.Capability" name="WebServicesExecutor"/>
+    <Reference class="sailpoint.object.Capability" name="SIEMPluginAdministrator"/>
+    <Reference class="sailpoint.object.Capability" name="SIEMEXTPluginAdministrator"/>
+</Capabilities>
+<Scorecard />
+</Identity>

@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE CertificationDefinition PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<CertificationDefinition name="SIEM Entitlement Owner Certification">
+    <Attributes>
+        <Map>
+            <entry key="activePeriodDurationAmount" value="1"/>
+            <entry key="activePeriodDurationScale" value="Month"/>
+            <entry key="allowCertificationEntityBulkAccountRevocation" value="true"/>
+            <entry key="allowCertificationEntityBulkApprove" value="true"/>
+            <entry key="allowCertificationEntityBulkClearDecisions" value="true"/>
+            <entry key="allowCertificationEntityBulkRevocation" value="true"/>
+            <entry key="allowEntityBulkApprove" value="true"/>
+            <entry key="allowListViewBulkApprove" value="true"/>
+            <entry key="allowListViewBulkClearDecisions" value="true"/>
+            <entry key="allowListViewBulkMitigate" value="false"/>
+            <entry key="allowListViewBulkReassign" value="true"/>
+            <entry key="allowListViewBulkRevoke" value="true"/>
+            <entry key="allowProvisioningMissingRequirements" value="false"/>
+            <entry key="appOwnerIsUnownedDataOwner" value="true"/>
+            <entry key="assimilateBulkReassignments" value="false"/>
+            <entry key="autoSignOffWhenNothingToCertify" value="false"/>
+            <entry key="automateSignOffOnReassignment" value="false"/>
+            <entry key="automateSignoffPopup" value="false"/>
+            <entry key="automaticClosingAction">
+                <value>
+                    <CertificationStatus>Remediated</CertificationStatus>
+                </value>
+            </entry>
+            <entry key="automaticClosingComments"/>
+            <entry key="automaticClosingDurationAmount" value="7"/>
+            <entry key="automaticClosingDurationScale" value="Day"/>
+            <entry key="automaticClosingEnabled" value="false"/>
+            <entry key="automaticClosingSigner" value="spadmin"/>
+            <entry key="bulkReassignmentEmailTemplate" value="Bulk Reassignment"/>
+            <entry key="certOwner" value="siemservice"/>
+            <entry key="certification.remindersAndEscalations"/>
+            <entry key="certificationDecisionChallengedEmailTemplate" value="Certification Decision Challenged Notification"/>
+            <entry key="certificationDelegationReview" value="false"/>
+            <entry key="certificationDetailedViewFilterSet" value="false"/>
+            <entry key="certificationDisableDelegationForwarding" value="false"/>
+            <entry key="certificationEmailTemplate" value="Certification"/>
+            <entry key="certificationEntityDelegationEnabled" value="true"/>
+            <entry key="certificationGlobal" value="false"/>
+            <entry key="certificationItemDelegationEnabled" value="false"/>
+            <entry key="certificationLimitReassignments" value="false"/>
+            <entry key="certificationMitigationEnabled" value="false"/>
+            <entry key="certificationMitigationPopupEnabled" value="false"/>
+            <entry key="certificationNameTemplate" value="SIEM Entitlement Owner Certification [${fullDate}]"/>
+            <entry key="certificationPageListItems" value="true"/>
+            <entry key="certificationRequired.remindersAndEscalations">
+                <value>
+                    <NotificationConfig>
+                        <Configs>
+                            <ReminderConfig before="true" emailTemplateName="Work Item Reminder" millis="1209600000" once="true"/>
+                            <EscalationConfig before="true" emailTemplateName="Work Item Escalation" millis="604800000"/>
+                        </Configs>
+                    </NotificationConfig>
+                </value>
+            </entry>
+            <entry key="certificationRequiredDurationAmount" value="1"/>
+            <entry key="certificationRequiredDurationScale" value="Month"/>
+            <entry key="certificationSignOffApprovalEmailTemplate" value="Certification Sign Off Approval"/>
+            <entry key="certificationSignatureType"/>
+            <entry key="certificationType">
+                <value>
+                    <CertificationType>DataOwner</CertificationType>
+                </value>
+            </entry>
+            <entry key="certifiedApplicationIds" value=""/>
+            <entry key="certifiedDurationAmount" value="11"/>
+            <entry key="certifiedDurationScale" value="Month"/>
+            <entry key="certifierType" value="Manual"/>
+            <entry key="certifyAccounts" value="false"/>
+            <entry key="certifyEmptyAccounts" value="false"/>
+            <entry key="challengeAcceptedEmailTemplate" value="Challenge Accepted"/>
+            <entry key="challengeGenerationEmailTemplate" value="Challenge Creation Notification"/>
+            <entry key="challengePeriodDurationAmount" value="1"/>
+            <entry key="challengePeriodDurationScale" value="Week"/>
+            <entry key="challengePeriodEnabled" value="false"/>
+            <entry key="challengePeriodEndEmailTemplate" value="Challenge Period End"/>
+            <entry key="challengePeriodStartEmailTemplate" value="Challenge Period Start"/>
+            <entry key="challengeRejectedEmailTemplate" value="Challenge Rejected"/>
+            <entry key="completeCertificationHierarchyEnabled" value="false"/>
+            <entry key="continuous" value="false"/>
+            <entry key="defaultAssigneeName" value="ALLOW_USER_SELECTION"/>
+            <entry key="displayEntitlementDescriptions" value="false"/>
+            <entry key="electronicSignatureRequired" value="false"/>
+            <entry key="enableAccountReassignAction" value="false"/>
+            <entry key="enableApproveAccountAction" value="false"/>
+            <entry key="enableEntitlementAssignments" value="false"/>
+            <entry key="enableOverrideViolationDefaultRemediator" value="true"/>
+            <entry key="entitlementGranularity" value="Value"/>
+            <entry key="excludeInactive" value="false"/>
+            <entry key="exclusionRuleName" value="SIEM Group Membership Exclusion Rule"/>
+            <entry key="flattenManagerCertificationHierarchy" value="false"/>
+            <entry key="includeAdditionalEntitlements" value="true"/>
+            <entry key="includeCapabilities" value="false"/>
+            <entry key="includeEntitlementsGrantedByRoles" value="false"/>
+            <entry key="includePolicyViolations" value="true"/>
+            <entry key="includeRoleHierarchy" value="false"/>
+            <entry key="includeRoles" value="true"/>
+            <entry key="includeScopes" value="false"/>
+            <entry key="includeUnownedData" value="true"/>
+            <entry key="mitigationDurationAmount" value="1"/>
+            <entry key="mitigationDurationScale" value="Month"/>
+            <entry key="mitigationExpirationEmailTemplate" value="Mitigation Expiration"/>
+            <entry key="nameTemplate"/>
+            <entry key="notifyRemediation">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="overdue.remindersAndEscalations">
+                <value>
+                    <NotificationConfig>
+                        <Configs>
+                            <ReminderConfig before="true" emailTemplateName="Work Item Reminder" millis="1209600000" once="true"/>
+                            <EscalationConfig before="true" emailTemplateName="Work Item Escalation" millis="604800000"/>
+                        </Configs>
+                    </NotificationConfig>
+                </value>
+            </entry>
+            <entry key="processRevokesImmediately" value="false"/>
+            <entry key="remediation.remindersAndEscalations">
+                <value>
+                    <NotificationConfig>
+                        <Configs>
+                            <ReminderConfig before="true" emailTemplateName="Work Item Reminder" millis="1209600000" once="true"/>
+                            <EscalationConfig before="true" emailTemplateName="Work Item Escalation" maxReminders="5" millis="604800000"/>
+                        </Configs>
+                    </NotificationConfig>
+                </value>
+            </entry>
+            <entry key="remediationPeriodDurationAmount" value="1"/>
+            <entry key="remediationPeriodDurationScale" value="Month"/>
+            <entry key="remediationPeriodEnabled" value="true"/>
+            <entry key="requireApprovalComments" value="false"/>
+            <entry key="requireBulkCertifyConfirmation" value="false"/>
+            <entry key="requireMitigationComments" value="false"/>
+            <entry key="requireReassignmentCompletion" value="true"/>
+            <entry key="saveExclusions" value="false"/>
+            <entry key="sendPreDelegationCompleteEmails" value="false"/>
+            <entry key="shortNameTemplate" value="SIEM Ent Certification"/>
+            <entry key="stagingEnabled" value="false"/>
+            <entry key="subordinateCertificationEnabled" value="true"/>
+            <entry key="suppressEmailWhenNothingToCertify" value="false"/>
+            <entry key="suppressInitialNotification" value="false"/>
+        </Map>
+    </Attributes>
+    <Description>SIEM Plugin Entitlement Owner Certification</Description>
+    <Owner>
+        <Reference class="sailpoint.object.Identity" name="siemservice"/>
+    </Owner>
+</CertificationDefinition>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.JDBCConnector" featuresString="" icon="databaseIcon" name="SIEM Application" profileClass="" type="JDBC">
+    <Attributes>
+        <Map>
+            <entry key="SQL" value="select 1;"/>
+            <entry key="aggregationMode">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="compositeDefinition"/>
+            <entry key="deltaTable"/>
+            <entry key="driverClass" value="com.mysql.jdbc.Driver"/>
+            <entry key="getDeltaSQL"/>
+            <entry key="isPermissionEnabled">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="mergeRows">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+            <entry key="nativeChangeDetectionAttributes"/>
+            <entry key="nativeChangeDetectionEnabled">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="nativeChangeDetectionOperations"/>
+            <entry key="partitionMode">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="partitionStatements"/>
+            <entry key="provisionRule" value="globalRule"/>
+            <entry key="sysDescriptions">
+                <value>
+                    <Map>
+                        <entry key="en_US"/>
+                    </Map>
+                </value>
+            </entry>
+            <entry key="templateApplication" value="JDBC Template"/>
+            <entry key="testConnSQL"/>
+            <entry key="url" value="jdbc:mysql://host/dbname"/>
+            <entry key="useExecuteQuery">
+                <value>
+                    <Boolean></Boolean>
+                </value>
+            </entry>
+            <entry key="user" value="root"/>
+        </Map>
+    </Attributes>
+    <Owner>
+        <Reference class="sailpoint.object.Identity" name="spadmin"/>
+    </Owner>
+    <Schemas>
+        <Schema displayAttribute="" identityAttribute="" instanceAttribute="" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None"/>
+    </Schemas>
+    <ApplicationScorecard />
+</Application>

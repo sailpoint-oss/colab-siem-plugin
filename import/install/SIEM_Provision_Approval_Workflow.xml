@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow configForm="Provisioning Workflow Config Form" handler="sailpoint.api.StandardWorkflowHandler"
+          libraries="Identity,Role,PolicyViolation,LCM,BatchRequest,IdentityRequest" name="SIEM Provisioning Approval Workflow"
+          taskType="LCM" type="LCMProvisioning">
+    <Variable input="true" name="plan">
+        <Description>The provisioning plan ready to execute.</Description>
+    </Variable>
+    <Variable input="true" name="project">
+        <Description>The compiled provisioning plan</Description>
+    </Variable>
+    <Variable initializer="false" name="trace"/>
+    <Variable initializer="false" input="true" name="isPassword">
+        <Description>Indicates this provisioning action should be a password reset and one or all of an Identities accounts</Description>
+    </Variable>
+    <Variable initializer="false" input="true" name="isAll">
+        <Description>Indicates whether this is a bulk or single provisioning action</Description>
+    </Variable>
+    <Step icon="Start" name="Start" posX="25">
+        <Transition to="Password Operations" when="script:(isTrue(isPassword))"/>
+        <Transition to="SIEM Provision Approval Form"/>
+    </Step>
+    <Step icon="Approval" name="SIEM Provision Approval Form">
+        <Approval mode="serial" owner="spadmin" name="SIEM Provisioning Approval">
+            <Arg name="project" value="ref:project" />
+            <Arg name="plan" value="ref:plan" />
+            <Form name="SIEM Provision Approval Form" type="Workflow">
+                <Attributes>
+                    <Map>
+                        <entry key="pageTitle" value="SIEM Provisioning Approval" />
+                        <entry key="title" value="SIEM Provisioning Approval"/>
+                    </Map>
+                </Attributes>
+
+                <Section name="description" type="datatable">
+                    <Field displayName="" value="An alert registered by the SIEM application is requesting a provisioning action. " />
+                    <Field displayName="Action: ">
+                        <Script>
+                            <Source>
+                                <![CDATA[
+                                    import java.util.List;
+
+                                    String operations = "";
+
+                                    List<AccountRequest> accountRequests = plan.getAccountRequests();
+                                    if(accountRequests != null) {
+                                        for(accountRequest : accountRequests) {
+                							operations = accountRequest.getOperation().toString() + " " + operations;
+                                        }
+                                    }
+
+                                    return operations;
+                                ]]>
+                            </Source>
+                        </Script>
+                    </Field>
+                    <Field displayName="Identity: " value="ref:project.getIdentity()" />
+                    <Field displayName="Application: ">
+                        <Script>
+                            <Source>
+                                <![CDATA[
+                                    import java.util.List;
+
+                                    String applications = "";
+                                    List<String> applicationList = plan.getApplicationNames();
+                					if(applicationList != null){
+                                        for(target : applicationList) {
+                                            applications = applications + " " + target;
+                                        }
+                                    }
+
+                                    return applications;
+                                ]]>
+                            </Source>
+                        </Script>
+                    </Field>
+                    <Field value="Please approve or reject this provisioning request." />
+                </Section>
+
+                <Button action="next" label="Approve" />
+                <Button action="back" label="Reject" />
+                <Button action="cancel" label="Cancel" />
+            </Form>
+        </Approval>
+        <Transition to="Provision" when="lastApprovalState.equalsIgnoreCase(&quot;Finished&quot;);"/>
+        <Transition to="End" when="lastApprovalState.equalsIgnoreCase(&quot;Rejected&quot;);"/>
+    </Step>
+    <Step icon="task" name="Provision">
+        <Arg name="project" value="ref:project"/>
+        <Script>
+            <Source>
+                <![CDATA[
+                    import sailpoint.api.Provisioner;
+
+                    Provisioner p = new Provisioner(context);
+                    p.execute(project);
+                ]]>
+            </Source>
+        </Script>
+        <Transition to="End"/>
+    </Step>
+    <Step icon="task" name="Password Operations">
+        <Arg name="isAll" value="ref:isAll"/>
+        <Transition to="End"/>
+    </Step>
+    <Step icon="Stop" name="End"/>
+</Workflow>

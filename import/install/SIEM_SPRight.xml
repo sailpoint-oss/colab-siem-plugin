@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE sailpoint PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<sailpoint>
+	<SPRight name="siemadministrator"
+		displayName="SIEM Administrator">
+		<Description>Allows a user to access fullpage and endpoints of the
+			plugin</Description>
+	</SPRight>
+
+	<Capability name="SIEMPluginAdministrator"
+		displayName="SIEM Plugin Admin">
+		<Description>The SIEM Plugin Administrator</Description>
+		<RightRefs>
+			<Reference class="sailpoint.object.SPRight"
+				name="siemadministrator" />
+		</RightRefs>
+	</Capability>
+
+	<SPRight name="siemextadministrator"
+		displayName="SIEM EXT Administrator">
+		<Description>Allows a user to access fullpage and endpoints of the
+			plugin</Description>
+	</SPRight>
+
+	<Capability name="SIEMEXTPluginAdministrator"
+		displayName="SIEM EXT Plugin Admin">
+		<Description>The SIEM EXT Plugin Administrator (Ext API's)</Description>
+		<RightRefs>
+			<Reference class="sailpoint.object.SPRight"
+				name="siemextadministrator" />
+		</RightRefs>
+	</Capability>
+</sailpoint>
