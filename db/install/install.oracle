@@ -1,0 +1,37 @@
+
+--
+-- Oracle DDL plugin script
+--
+
+CREATE TABLE siem_alert
+(
+    id VARCHAR2(32) NOT NULL,
+    alert_id VARCHAR2(32) DEFAULT NULL,
+    created NUMBER(19) DEFAULT NULL,
+    native_id VARCHAR2(255) DEFAULT NULL,
+    source_application VARCHAR2(255) DEFAULT NULL,
+    target_group_name VARCHAR2(255) DEFAULT NULL,
+    target_group_type VARCHAR2(255) DEFAULT NULL,
+    alert_level VARCHAR2(32) DEFAULT NULL,
+    processed_date NUMBER(19) DEFAULT NULL,
+    alert_type VARCHAR2(255) DEFAULT NULL,
+    action VARCHAR2(32) DEFAULT NULL,
+    use_workflow NUMBER(1) DEFAULT 0,
+    CONSTRAINT SIEM_ALERT PRIMARY KEY (id)
+);
+
+CREATE INDEX idx_level on siem_alert (alert_level);
+CREATE INDEX idx_create on siem_alert (created);
+CREATE INDEX idx_alert_type on siem_alert (alert_type);
+CREATE INDEX idx_source_application on siem_alert (source_application);
+
+CREATE TABLE siem_overview_data (
+    id number(10) NOT NULL,
+    type_totals CLOB,
+    account_metrics CLOB,
+    application_metrics CLOB,
+    application_count CLOB,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO siem_overview_data (id, type_totals, account_metrics, application_metrics, application_count) VALUES (1, '[]', '[]', '[]', '[]');

@@ -1,0 +1,113 @@
+<div class="risk-widget">
+    <div class="panel-body">
+        <uib-tabset active="active">
+            <uib-tab heading="Overview" class="siem-tab" ng-click="widgetCtrl.loadOverview()">
+                <div class="tab-pane">
+                    <div class="text-center">
+                        <ul class="list-group" style="margin-right: 0;">
+                            <li class="list-group-item siem-list-group-item" style="min-height: 36px;" ng-repeat="alert in widgetCtrl.pagedAlerts">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <span class="text-ellipsis">{{ alert.displayName }}</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>{{ alert.count }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center" style="margin-top: 75px;" ng-if="widgetCtrl.pagedAlerts.length === 0">
+                            <p class="h4 text-muted">Currently no data</p>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Alert Type Totals" class="siem-tab" ng-click="widgetCtrl.loadAlertTypeTotals()">
+                <div class="tab-pane">
+                    <div class="">
+                        <ul class="list-group " style="margin-right: 0;">
+                            <li class="list-group-item siem-list-group-item"  style="min-height: 36px;" ng-repeat="alert in widgetCtrl.pagedAlerts">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <span class="text-ellipsis">{{ alert.displayName }}</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>{{ alert.count }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center" style="margin-top: 75px;" ng-if="widgetCtrl.pagedAlerts.length === 0">
+                            <p class="h4 text-muted">Currently no data</p>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Account Alert Metrics" class="siem-tab" ng-click="widgetCtrl.loadAccountMetrics()">
+                <div class="tab-pane">
+                    <div class="">
+                        <ul class="list-group " style="margin-right: 0;">
+                            <li class="list-group-item siem-list-group-item"  style="min-height: 36px;" ng-repeat="alert in widgetCtrl.pagedAlerts">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <span class="text-ellipsis">{{ alert.displayName }}</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>{{ alert.count }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center" style="margin-top: 75px;" ng-if="widgetCtrl.pagedAlerts.length === 0">
+                            <p class="h4 text-muted">Currently no data</p>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab heading="Application Alert Metrics" class="siem-tab" ng-click="widgetCtrl.loadApplicationMetrics()">
+                <div class="tab-pane">
+                    <div class="">
+                        <ul class="list-group " style="margin-right: 0;">
+                            <li class="list-group-item siem-list-group-item"  style="min-height: 36px;" ng-repeat="alert in widgetCtrl.pagedAlerts">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <span class="text-ellipsis">{{ alert.displayName }}</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <span>{{ alert.count }}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center" style="margin-top: 75px;" ng-if="widgetCtrl.pagedAlerts.length === 0">
+                            <p class="h4 text-muted">Currently no data</p>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-xs-5 col-sm-4">
+                <button ng-disabled="widgetCtrl.alerts.length == 0" ng-click="widgetCtrl.goToSiemPage()" type="button" role="button"
+                        class="btn btn-white btn-sm text-info" tabindex="50">
+                    {{ 'ui_widget_all' | spTranslate }}
+                    <i class="fa fa-chevron-right m-l-xs" role="presentation" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="col-xs-4 col-sm-3 text-center">
+                <p ng-if="widgetCtrl.alerts.length > 6">
+                    {{1 + 5 * (widgetCtrl.currentPage - 1) }}&#8211;{{5 * widgetCtrl.currentPage > widgetCtrl.alerts.length ?
+                    widgetCtrl.alerts.length : 5 * widgetCtrl.currentPage }} of {{ widgetCtrl.alerts.length }}
+                </p>
+            </div>
+            <div class="col-xs-2 col-sm-5 text-right hidden-xs">
+                <ul ng-if="widgetCtrl.alerts.length > 6" class="pagination pagination-sm" style="margin: 0;" sp-uib-pagination
+                    ng-if="widgetCtrl.alerts.length !== 0" max-size="3"
+                    total-items="widgetCtrl.alerts.length" ng-model="widgetCtrl.currentPage"
+                    ng-change="widgetCtrl.setPagingData()" items-per-page="widgetCtrl.itemsPerPage"></ul>
+            </div>
+        </div>
+    </div>
+</div>

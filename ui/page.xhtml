@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+	<body>
+
+		<ui:composition>
+			<div class="container" ng-app="SIEMModule" ng-controller="SIEMCtrl as ctrl">
+
+				<div class="panel panel-default">
+
+					<div class="panel-heading">
+						<h3 class="panel-title" style="display: inline-flex;">SIEM Dashboard</h3>
+						<span class="pull-right">
+							<button class="btn btn-md btn-info" ng-click="ctrl.goToAlertPage()">Go to Alert Details</button>
+						</span>
+					</div>
+					<div class="panel-body">
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<div class="panel panel-default SIEMPanels">
+
+									<div class="panel-heading">
+										<h3 class="panel-title" style="display: inline-flex;">Alert Histogram</h3>
+										<span class="pull-right">
+											<select ng-model="ctrl.selectedTimeInterval" ng-change="ctrl.updateHistogram()"
+												ng-options="timeInterval as timeInterval.display for timeInterval in
+												ctrl.timeIntervalOptions" class="form-control">
+												<option value="" ng-show="false">One week</option>
+											</select>
+										</span>
+									</div>
+									<div class="panel-body">
+
+										<br />
+										<br />
+										<canvas id="bar" class="chart chart-bar" chart-data="ctrl.histogram.data" chart-labels="ctrl.histogram.labels" chart-series="ctrl.histogram.series">
+
+										</canvas>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel panel-default SIEMPanels" >
+
+									<div class="panel-heading">
+										<h3 class="panel-title" style="display: inline-flex;">Alert Frequency</h3>
+										<span class="pull-right">
+											<select ng-model="ctrl.selectedAlertType" ng-change="ctrl.updateDoughnutChart()"
+													ng-options="alertType as alertType for alertType in
+												ctrl.alertTypes" class="form-control">
+											</select>
+										</span>
+									</div>
+									<div class="panel-body">
+
+										<br />
+										<br />
+										<canvas id="barone" class="chart chart-doughnut" chart-data="ctrl.doughnutChart.data" chart-labels="ctrl.doughnutChart.labels">
+
+										</canvas>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<div class="panel panel-default SIEMPanels">
+
+									<div class="panel-heading">
+										<h3 class="panel-title" style="display: inline-flex;">Top 10 Alerts</h3>
+										<span class="pull-right">
+											<select ng-model="ctrl.topTenSelected" class="form-control" ng-change="ctrl.updateTopTen()">
+												<option value="identity">Identity</option>
+												<option value="application">Application</option>
+											</select>
+										</span>
+									</div>
+									<div class="panel-body" style="min-height: 409px;">
+										<div class="list-group-item ng-scope" ng-if="ctrl.topTenSelected.toLowerCase() === 'identity'"
+											 ng-repeat="byIdentity in ctrl.AlertsByIdentity">
+											<div class="row" tabindex="-1">          
+												<div class="col-sm-7">
+												   <span class="text-ellipsis ng-binding">{{ byIdentity.identityName }}</span>
+												</div>          
+												<div class="col-sm-5 text-right">             
+													<span class="text-ellipsis ng-binding">{{ byIdentity.count }}</span> 
+												</div>        
+											</div>
+										</div>
+
+										<div class="list-group-item ng-scope" ng-if="ctrl.topTenSelected.toLowerCase() === 'application'"
+											 ng-repeat="byTopAppsName in ctrl.AlertsByAppName">
+											<div class="row" tabindex="-1">
+												<div class="col-sm-7">
+													<span class="text-ellipsis ng-binding">{{ byTopAppsName.displayName }}</span>
+												</div>
+												<div class="col-sm-5 text-right">
+													<span class="text-ellipsis ng-binding">{{ byTopAppsName.count }}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+
+							<div class="col-md-6">
+								<div class="panel panel-default SIEMPanels">
+
+									<div class="panel-heading">
+										<h3 class="panel-title">Alert Overview</h3>
+									</div>
+									<div class="panel-body" style="overflow-y: scroll; max-height: 409px;">
+										<div class="list-group-item ng-scope" ng-repeat="alertData in ctrl.overviewData">
+											<div class="row" tabindex="-1">
+												<div class="col-sm-9">
+													<span class="text-ellipsis ng-binding">{{ alertData.displayName }}</span>
+												</div>
+												<div class="col-sm-3 text-right">
+													<span class="text-ellipsis ng-binding">{{ alertData.count }}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/Chart.min.js"></script>
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/angular.min.js"></script>
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/ui-bootstrap.min.js"></script>
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/angular-chart.js"></script>
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/angular-chart.min.js"></script>
+			<script src="#{plugins.requestContextPath}/plugin/SIEMPlugin/ui/js/SIEMModule.js"></script>
+
+		</ui:composition>
+
+	</body>
+</html>
+

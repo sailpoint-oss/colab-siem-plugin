@@ -1,0 +1,74 @@
+<div class="risk-widget">
+    <div class="panel-body">
+        <div class="row risk-title-row">
+            <div class="col-xs-offset-2 col-xs-8 text-center">
+                <div class="btn-group m-r">
+                    <button data-toggle="dropdown" class="btn btn-md btn-white dropdown-toggle">
+                        <span class="dropdown-label">{{ widgetCtrl.activeAlertType }}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-select siem-scrollable-menu">
+                        <li ng-repeat="alertType in widgetCtrl.alertTypes" ng-click="widgetCtrl.fetchAlertType(alertType)"
+                            ng-class="{'active' : alertType === widgetCtrl.activeAlertType}">
+                            <a href="#">
+                                <input type="radio" name="d-s-r">{{ alertType }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-if="widgetCtrl.alerts.length === 0">
+            <div class="text-center" style="margin-top: 63px;">
+                <p class="h4 text-muted">Currently no data</p>
+            </div>
+        </div>
+        <table ng-if="widgetCtrl.alerts.length !== 0" class="table card-table table-responsive table-hover m-b-none">
+            <thead class="bg-white">
+            <tr>
+                <th>Application
+                <th>Alert Action</th>
+                <th>Account Name</th>
+                <th>Level</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="alert in widgetCtrl.pagedAlerts track by alert.id" ng-click="widgetCtrl.viewDetails(alert)">
+                    <td ng-if="alert.sourceApplication">{{ alert.sourceApplication }}</td>
+                    <td ng-if="!alert.sourceApplication">&#8212;</td>
+
+                    <td ng-if="alert.action">{{ alert.action }}</td>
+                    <td ng-if="!alert.action">&#8212;</td>
+                    <td ng-if="alert.nativeId">{{ (alert.nativeId | limitTo: 10) + (alert.nativeId.length > 10 ? '...' : '')}}</td>
+                    <td ng-if="!alert.nativeId">&#8212;</td>
+
+                    <td ng-if="alert.level">{{ alert.level }}</td>
+                    <td ng-if="!alert.level">&#8212;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-xs-5 col-sm-4">
+                <button ng-disabled="widgetCtrl.riskyThings.length == 0" ng-click="widgetCtrl.goToSiemPage()" type="button" role="button"
+                        class="btn btn-white btn-sm text-info" tabindex="50">
+                    {{ 'ui_widget_all' | spTranslate }}
+                    <i class="fa fa-chevron-right m-l-xs" role="presentation" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="col-xs-4 col-sm-3 text-center">
+                <p ng-if="widgetCtrl.alerts.length > 5">
+                    {{1 + 5 * (widgetCtrl.currentPage - 1) }}&#8211;{{5 * widgetCtrl.currentPage > widgetCtrl.alerts.length ?
+                    widgetCtrl.alerts.length : 5 * widgetCtrl.currentPage }} of {{ widgetCtrl.alerts.length }}
+                </p>
+            </div>
+            <div class="col-xs-2 col-sm-5 text-right hidden-xs">
+                <ul ng-if="widgetCtrl.alerts.length > 5" class="pagination pagination-sm" style="margin: 0;" sp-uib-pagination
+                    ng-if="widgetCtrl.alerts.length !== 0" max-size="3"
+                    total-items="widgetCtrl.alerts.length" ng-model="widgetCtrl.currentPage"
+                    ng-change="widgetCtrl.setPagingData()" items-per-page="widgetCtrl.itemsPerPage"></ul>
+            </div>
+        </div>
+    </div>
+</div>

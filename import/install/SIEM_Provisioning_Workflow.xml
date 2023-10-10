@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow configForm="Provisioning Workflow Config Form" handler="sailpoint.api.StandardWorkflowHandler" libraries="Identity,Role,PolicyViolation,LCM,BatchRequest" name="SIEM Provisioning Workflow" taskType="LCM" type="LCMProvisioning">
+    <Variable input="true" name="plan">
+        <Description>The provisioning plan ready to execute.</Description>
+    </Variable>
+    <Variable input="true" name="project">
+        <Description>The compiled provisioning plan</Description>
+    </Variable>
+    <Variable initializer="false" name="trace"/>
+    <Variable initializer="false" input="true" name="isPassword">
+        <Description>Indicates this provisioning action should be a password reset and one or all of an Identities accoutns</Description>
+    </Variable>
+    <Variable initializer="false" input="true" name="isAll">
+        <Description>Indicates whether this is a bulk or single provisioning action</Description>
+    </Variable>
+    <Step icon="Start" name="Start" posX="25">
+        <Transition to="Password Operations" when="script:(isTrue(isPassword))"/>
+        <Transition to="Provision"/>
+    </Step>
+    <Step icon="task" name="Provision">
+        <Arg name="project" value="ref:project"/>
+        <Script>
+            <Source>
+                <![CDATA[
+                    import sailpoint.api.Provisioner;
+    
+                    Provisioner p = new Provisioner(context);
+                    p.execute(project);
+                ]]>
+            </Source>
+        </Script>
+        <Transition to="end"/>
+    </Step>
+    <Step icon="task" name="Password Operations">
+        <Arg name="isAll" value="ref:isAll"/>
+        <Transition to="end"/>
+    </Step>
+    <Step icon="Stop" name="end"/>
+</Workflow>

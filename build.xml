@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SIEM Plugin" default="package">
+
+	<description>
+		SIEM Plugin
+	</description>
+
+	<!-- Project Structure -->
+	<!-- Allow overriding of build properties -->
+	<property file="build.properties"/>
+	<property name="buildPlugins" location="build"/>
+
+	<property name="pluginBase" location="."/>
+	<property name="pluginSrc" location="${pluginBase}/src"/>
+	<property name="pluginTest" location="${pluginBase}/test"/>
+
+	<property name="pluginBuild" location="${buildPlugins}/${pluginName}"/>
+	<property name="pluginLib" location="${pluginBuild}/lib"/>
+	<property name="pluginClasses" location="${pluginBuild}/classes"/>
+	<property name="pluginContents" location="${pluginBuild}/contents"/>
+	<property name="pluginConfig" location="${pluginBuild}/config"/>
+	<property name="pluginTestBuild" location="${pluginBuild}/test"/>
+
+	<!-- Project Packaging -->
+	<target name="package" depends="setup">
+
+		<echo message="Starting build process..."/>
+
+		<echo message="Compiling jar..."/>
+		<mkdir dir="${pluginLib}"/>
+
+		<jar destfile="${pluginLib}/${pluginName}.jar">
+			<fileset dir="${pluginClasses}">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+
+		<echo message="Copying files..."/>
+		<mkdir dir="${pluginContents}"/>
+
+		<copy todir="${pluginContents}">
+			<fileset dir="${pluginBase}">
+				<include name="manifest.xml"/>
+				<include name="db/**"/>
+				<include name="import/**"/>
+				<include name="lib/*.jar"/>
+				<include name="ui/**"/>
+			</fileset>
+			<fileset dir="${pluginBuild}">
+				<include name="lib/*.jar"/>
+			</fileset>
+		</copy>
+
+		<echo message="Zipping final build..."/>
+		<zip encoding="UTF-8" baseDir="${pluginContents}" destfile="${pluginBuild}/dist/${pluginName}.${version}.zip">
+		</zip>
+
+	</target>
+
+	<!-- Class path for Test -->
+	<path id="classpath.test">
+
+		<pathelement location="${pluginClasses}"/>
+		<!-- <pathelement location="${pluginBase}/lib/junit-4.12.jar" /> -->
+		<!-- <pathelement location="${pluginBase}/lib/hamcrest-core-1.3.jar" /> -->
+
+		<pathelement path="${iiq.home}/WEB-INF/classes"/>
+		<fileset dir="${iiq.home}/WEB-INF/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${pluginBase}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+
+	</path>
+
+	<!-- Setup -->
+	<target name="setup">
+
+		<echo message="Compiling classes..."/>
+		<mkdir dir="${pluginClasses}"/>
+
+		<javac srcdir="${pluginSrc}" destdir="${pluginClasses}" includeantruntime="false" target="1.8">
+			<classpath>
+				<pathelement path="${iiq.home}/WEB-INF/classes"/>
+				<fileset dir="${iiq.home}/WEB-INF/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${pluginBase}/lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+			<compilerarg value="-Xlint:deprecation"/>
+			<compilerarg value="-Xlint:unchecked"/>
+		</javac>
+
+		<!-- <echo message="Copying more files [config]..." />
+			<mkdir dir="${pluginConfig}" />
+
+			<copy todir="${pluginConfig}">
+				<fileset dir="${pluginBase}/config">
+					<include name="*.*" />
+				</fileset>
+			</copy> -->
+
+	</target>
+
+	<!-- Test-Compile -->
+	<target name="test-compile" depends="setup">
+
+		<echo message="Performing Test Compile..."/>
+		<mkdir dir="${pluginTestBuild}"/>
+
+		<javac srcdir="${pluginTest}" destdir="${pluginTestBuild}" includeantruntime="false">
+			<classpath refid="classpath.test"/>
+		</javac>
+
+	</target>
+
+	<!-- Test -->
+	<target name="test" depends="test-compile">
+
+		<echo message="Executing Test Cases..."/>
+		<junit printsummary="true" haltonfailure="false" fork="true">
+
+			<classpath>
+				<path refid="classpath.test"/>
+				<pathelement location="${pluginConfig}"/>
+				<pathelement location="${pluginTestBuild}"/>
+			</classpath>
+
+			<!-- Uncomment to get details for test runs. -->
+			<!-- <formatter type="brief" usefile="false" /> -->
+
+			<!-- Change the includes to "**/test.java" within fileset tage to skip testing -->
+			<batchtest>
+				<!-- <fileset dir="${pluginTest}" includes="**/*.java" /> -->
+			</batchtest>
+		</junit>
+
+	</target>
+
+	<!-- Clean-up Tasks -->
+	<target name="clean">
+
+		<echo message="Cleaning target..."/>
+		<delete dir="${buildPlugins}"/>
+
+	</target>
+
+</project>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Workflow handler="sailpoint.api.StandardWorkflowHandler" libraries="Identity" name="SIEM Remove Exclusion Rule" type="">
+    <Variable input="true" name="ruleName">
+        <Description>The modified exclusion rule for deleting</Description>
+    </Variable>
+    <Variable initializer="true" name="transient"/>
+    <Variable initializer="false" name="trace"/>
+    <Step icon="Start" name="Start" posX="25">
+        <Transition to="Delete Rule"/>
+    </Step>
+    <Step icon="task" name="Delete Rule">
+        <Arg name="ruleName" value="ref:ruleName"/>
+        <Script>
+            <Source>
+                <![CDATA[
+
+                    import org.apache.commons.logging.Log;
+                    import org.apache.commons.logging.LogFactory;
+                    import sailpoint.object.*;
+                    import sailpoint.api.*;
+
+                    private Log logger = LogFactory.getLog("workflow.SIEMPlugin.RemoveCustomExclusionRule");
+
+                    logger.debug("Entering removeModifiedExclusionRule...");
+
+                    Rule toDelete = context.getObjectByName(Rule.class, ruleName);
+                    logger.debug("The rule is: " + ruleName);
+                    String ret = "fail";
+
+                    if(null != toDelete){
+                        Terminator t = new Terminator(context);
+                        t.deleteObject(toDelete);
+                    }
+                    else{
+                        logger.error("No modified exclusion rule for SIEM group owner certification found! cannot delete.");
+                    }
+
+                    //validate delete
+                    QueryOptions qo = new QueryOptions();
+
+                    Filter f1 = Filter.eq("name", ruleName);
+                    List props = new ArrayList();
+                    props.add("id");
+                    qo.addFilter(f1);
+
+                    int count = context.countObjects(Rule.class, qo);
+                    if(count == 0){
+                        ret = "success";
+                    }
+                    else{
+                        logger.error("Did not delete custom exclusion rule used in SIEM entitlement owner certification!");
+                    }
+
+                    logger.debug("Exiting removeModifiedExclusionRule...");
+		        ]]>
+            </Source>
+        </Script>
+        <Transition to="end"/>
+    </Step>
+    <Step icon="Stop" name="end"/>
+</Workflow>
