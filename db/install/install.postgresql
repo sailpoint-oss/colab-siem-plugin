@@ -1,0 +1,34 @@
+
+--
+-- PostgreSQL DDL plugin script
+--
+
+CREATE TABLE siem_alert (
+    id VARCHAR(32) NOT NULL,
+    alert_id VARCHAR(32) DEFAULT NULL,
+    created BIGINT DEFAULT NULL,
+    native_id VARCHAR(255) DEFAULT NULL,
+    source_application VARCHAR(255) DEFAULT NULL,
+    target_group_name VARCHAR(255) DEFAULT NULL,
+    target_group_type VARCHAR(255) DEFAULT NULL,
+    alert_level VARCHAR(32) DEFAULT NULL,
+    processed_date BIGINT DEFAULT NULL,
+    alert_type VARCHAR(255) DEFAULT NULL,
+    action VARCHAR(32) DEFAULT NULL,
+    use_workflow BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (id)
+);
+CREATE INDEX idx_level ON siem_alert (alert_level);
+CREATE INDEX idx_create ON siem_alert (created);
+CREATE INDEX idx_alert_type ON siem_alert (alert_type);
+CREATE INDEX idx_source_application ON siem_alert (source_application);
+CREATE TABLE siem_overview_data (
+    id INT NOT NULL,
+    type_totals TEXT,
+    account_metrics TEXT,
+    application_metrics TEXT,
+    application_count TEXT,
+    PRIMARY KEY (id)
+);
+INSERT INTO siem_overview_data (id, type_totals, account_metrics, application_metrics, application_count)
+VALUES (1, '[]', '[]', '[]', '[]');
